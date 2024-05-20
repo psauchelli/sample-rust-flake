@@ -2,7 +2,7 @@
 /*
 	This is the simplest flake I could come up with to simply import nixos config (configuration.nix)
 	into a flake. Essentially the configuration.nix file is what tells NixOS how we want it set up.
-	e.g. which software packages, toggles, and any other config of the os.  You can make that file as
+	e.g. which software packages, options, and any other config of the OS.  You can make that file as
 	simple and generalized or as fully-loaded as you want.  If you want your config to be inherited by
 	flakes, you have to set the nixosConfigurations.${hostname} value and import the configuration.nix
 	file.  NixOS defaults this config file location to /etc/nixos/configuration.nix. However, you can put
@@ -22,8 +22,9 @@
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
-    nixosConfigurations.mysystem = nixpkgs.lib.nixosSystem {
-	# For a plain-english explanation of the nunction nixpkgs.lib.nixosSystem:
+    # to use the below config, type nixos-rebuild switch --flake .#nixos (or use absolute path instead of ".")
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+	# For a plain-english explanation of the function nixpkgs.lib.nixosSystem:
 	# https://www.reddit.com/r/NixOS/comments/13oat7j/what_does_the_function_nixpkgslibnixossystem_do/
 	# best comment by u/OHotDawnThisIsMyJawn
       system = "x86_64-linux"; # hard-code the system we want to run this flake.
